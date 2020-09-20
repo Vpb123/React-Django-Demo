@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Marks(models.Model):
     physics =models.PositiveIntegerField(null=True)
@@ -11,6 +12,7 @@ class Marks(models.Model):
 # Create your models here.
 class Student(models.Model):
     # stid=models.IntegerField(primary_key=True,default)
+    # owner = models.ForeignKey(User, related_name="students",on_delete=models.CASCADE, null=True)
     name=models.CharField(max_length=100)
     Class=models.CharField(max_length=10)
     Roll_no=models.IntegerField()
