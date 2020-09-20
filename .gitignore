@@ -5,7 +5,9 @@
 /frontend/node_modules
 /.pnp
 .pnp.js
-
+/App.js
+/models.py
+/frontend/src/components/Nav.js
 # testing
 /coverage
 
