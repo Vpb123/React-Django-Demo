@@ -188,7 +188,7 @@ function App() {
             ? `Hello, ${localStorage.getItem('name')} ,${superuser}`
             : 'Please Log In'}
         </h3>
-        <div><Student logged_in={logged_in} superuser={superuser}/></div>
+          <div>{logged_in?<Student logged_in={logged_in} superuser={superuser}/>:''}</div>
       </div>
       
     );

@@ -108,7 +108,7 @@ export default function Student(props) {
     window.location.reload(false);
   }
   const edit = (oldData,newData) =>{
-    if(props.superuser===false||props.logged_in===false){
+    if(props.superuser===false){
       setError("You are not Authorized!!!Reloading Page!")
       refreshPage()
     }else{
@@ -184,8 +184,6 @@ export default function Student(props) {
 
   }}
 
- if(props.logged_in===true){
-   if(props.superuser===true){
   return (
   <div>
   <h5 style={{color:"red"}}>{err}</h5>
@@ -204,6 +202,10 @@ export default function Student(props) {
         //   backgroundColor: '#23eb8a',
         //   color: '#0a0a0a'
         // }
+       
+          body: {
+            fontSize: 14,
+          },
       }}
       title="Student Portal"
       columns={state.columns}
@@ -238,45 +240,7 @@ export default function Student(props) {
       }}
     />
     </div>
-  );}else{
-    return(
-      <MaterialTable  className={classes.root}
-      icons={tableIcons}
-        options={{
-          exportButton: true,
-          // filtering: true,
-          sorting: true,
-          search: true,
-          grouping: true,
-          // rowStyle: {
-          //   backgroundColor: '#f345',
-          // },
-          // headerStyle: {
-          //   backgroundColor: '#23eb8a',
-          //   color: '#0a0a0a'
-          // }
-        }}
-        
-        title="Student Portal"
-        columns={state.columns}
-        data={state.data}
-        editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                create(newData);
-                
-              }, 1000);
-            })}}
-      />
-    );
-  }
-}else{
-  return(
-    <div></div>
-  )
-}
+  );
 }
 
 
