@@ -71,6 +71,12 @@ function App() {
  
     }
   },[])
+
+  const refreshPage=()=> {
+    window.location.reload(false);
+  }
+
+
  const  handle_error=() => {
     localStorage.removeItem('token');
     setUsername('');
@@ -128,7 +134,10 @@ function App() {
     setLogged_In(false)
     setUsername('')
     setDisplayed_form(null)
+    refreshPage();
   };
+
+
    const handleclick =e=>{
     const n=e.target.id;
      switch (n) {
@@ -206,7 +215,7 @@ function App() {
         <div>
         {displayed_form}
         </div>
-          <div>{logged_in?<Student logged_in={logged_in} superuser={superuser}/>:''}</div>
+        {logged_in?<Student logged_in={logged_in} superuser={superuser}/>:''}
     </div>
     </Container>     
     );

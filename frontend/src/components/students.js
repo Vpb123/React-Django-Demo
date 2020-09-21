@@ -155,10 +155,6 @@ export default function Student(props) {
   }
   }
   const deleteS = (oldData) => {
-    if(props.superuser===false){
-      setError("You are not Authorized!!!Reloading Page!")
-      refreshPage()
-    }else{
     var csrf = getCookie('csrftoken')
     var url = `http://localhost:8000/api/studentd/${oldData.id}`;
     fetch(url,{
@@ -177,8 +173,7 @@ export default function Student(props) {
       });
       
     })
-
-  }}
+}
   return (
   <div>
   <h5 style={{color:"red"}}>{err}</h5>
