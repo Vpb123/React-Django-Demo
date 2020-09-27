@@ -5,16 +5,13 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import Admin from './components/AdminSignup';
 import './App.css';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import {  makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Container } from '@material-ui/core';
@@ -33,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const[click,setClick]=useState(false)
@@ -42,6 +38,7 @@ function App() {
   const [logged_in,setLogged_In]=useState( localStorage.getItem('token') ? true : false);
   const [displayed_form,setDisplayed_form]=useState(null);
   const [errorMessage,setErrorMessage]=useState('')
+  const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -108,9 +105,14 @@ function App() {
         handle_error() 
       })
   };
-
+  
   const handle_signup = (e, data) => {
     e.preventDefault();
+    let password=data.password;
+    if(strongRegex.test(data.password)===false){
+      setErrorMessage("Your password is not validated!!!!!!!!!!")
+    }
+    else{
     fetch('http://localhost:8000/users/', {
       method: 'POST',
       headers: {
@@ -126,8 +128,9 @@ function App() {
         setUsername(json.username)
         setSuperUser(json.is_superuser)
         localStorage.setItem('name',json.first_name)
+        setErrorMessage('')
       });
-  };
+  }};
   const handle_logout = () => {
     setClick(false)
     localStorage.removeItem('token');
@@ -136,7 +139,6 @@ function App() {
     setDisplayed_form(null)
     refreshPage();
   };
-
 
    const handleclick =e=>{
     const n=e.target.id;
@@ -211,7 +213,7 @@ function App() {
         </p>
       </Jumbotron>:''}
     </div>
-      <h3 className="error"> { errorMessage } </h3> 
+      <h3 style={{color:'red'}}> { errorMessage } </h3> 
         <div>
         {displayed_form}
         </div>

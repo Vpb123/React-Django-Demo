@@ -14,9 +14,9 @@ router.register(r'marks', views.MarkView, 'marks')
 urlpatterns = [
     path('admin/', admin.site.urls),        
     path('api/', include(router.urls)),
-    path('token-auth/', obtain_jwt_token),
-    path('current_user/', views.current_user),
-    path('users/', views.UserList.as_view())
+    # path('token-auth/', obtain_jwt_token),
+    # path('current_user/', views.current_user),
+    # path('users/', views.UserList.as_view())
 #     path('st/', include('core.urls'))
 #     path('api-auth/', include('rest_framework.urls')),
 #     path('studentd/rest-auth/', include('rest_auth.urls')),                # add this

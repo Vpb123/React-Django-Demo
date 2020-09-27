@@ -132,7 +132,6 @@ export default function Student(props) {
   const create = (newData) =>{
     if(props.logged_in === false){
       setError("You are not Authorized!!!Reloading Page!")
-      refreshPage()
     }else{
     var csrf = getCookie('csrftoken')
     var url = `http://localhost:8000/api/studentd/`;
