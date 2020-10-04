@@ -50,7 +50,7 @@ function App() {
     if (logged_in) {
       fetch('http://localhost:8000/current_user/', {
         headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
         .then(res => res.json())
@@ -65,10 +65,27 @@ function App() {
          localStorage.setItem('name',json.username)
          setUsername(json.username)
         }})
- 
+        setTimeout(refreshtoken, 30000)
     }
   },[])
-
+  const refreshtoken=()=>{
+   const d={'refresh':localStorage.getItem('refresh')}
+    fetch('http://localhost:8000/api/token/refresh/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(d)
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem('token', json.access);
+        setErrorMessage("")
+        setLogged_In(true)
+        setDisplayed_form(null)
+        console.log(json)
+      })
+  }
   const refreshPage=()=> {
     window.location.reload(false);
   }
@@ -82,7 +99,7 @@ function App() {
  
  const  handle_login = (e, data) => {
     e.preventDefault();
-    fetch('http://localhost:8000/token-auth/', {
+    fetch('http://localhost:8000/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,19 +108,22 @@ function App() {
     })
       .then(res => res.json())
       .then(json => {
-        localStorage.setItem('token', json.token);
+        localStorage.setItem('token', json.access);
+        localStorage.setItem('refresh', json.refresh);
         setErrorMessage("")
         setLogged_In(true)
         setDisplayed_form(null)
-        setUsername(json.user.username)
-        setSuperUser(json.user.is_superuser)
+        // setUsername(json.user.username)
+        // setSuperUser(json.user.is_superuser)
         console.log(json)
         localStorage.removeItem('name')
-        localStorage.setItem('name',json.user.username)
-      }).catch(err =>{
-        setErrorMessage("Your Username or password is wrong!!!!!!!")
-        handle_error() 
+        // localStorage.setItem('name',json.user.username)
       })
+      // .catch(err =>{
+      //   setErrorMessage("Your Username or password is wrong!!!!!!!")
+      //   handle_error() 
+      // })
+      refreshPage()
   };
   
   const handle_signup = (e, data) => {

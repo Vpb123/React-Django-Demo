@@ -70,7 +70,7 @@ export default function Student(props) {
     const url = `http://localhost:8000/api/studentd/`
     axios.get(url ,{
       headers: {
-        Authorization: `JWT ${localStorage.getItem('token')}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     })
           .then(res => {
@@ -113,7 +113,7 @@ export default function Student(props) {
     fetch(url,{
       method: 'PUT',
       headers:{
-           Authorization: `JWT ${localStorage.getItem('token')}`,
+           Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-type':'application/json',
           'X-CSRFToken':csrf,
       },
@@ -138,7 +138,7 @@ export default function Student(props) {
     fetch(url,{
       method: 'POST',
       headers:{
-          Authorization: `JWT ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-type':'application/json',
           'X-CSRFToken':csrf,
       },
@@ -159,7 +159,7 @@ export default function Student(props) {
     fetch(url,{
       method: 'DELETE',
       headers:{
-         Authorization: `JWT ${localStorage.getItem('token')}`,
+         Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-type':'application/json',
           'X-CSRFToken':csrf,
       }
