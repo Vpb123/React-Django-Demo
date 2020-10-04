@@ -126,12 +126,12 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_WHITELIST = [
          'http://localhost:3000'
 ]
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'student.utils.my_jwt_response_handler'
-}
+# JWT_AUTH = {
+#     'JWT_RESPONSE_PAYLOAD_HANDLER': 'student.utils.my_jwt_response_handler'
+# }
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',

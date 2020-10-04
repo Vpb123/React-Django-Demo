@@ -116,6 +116,8 @@ function App() {
         // setUsername(json.user.username)
         // setSuperUser(json.user.is_superuser)
         console.log(json)
+        localStorage.setItem('token', json.token.access)
+        localStorage.setItem('refresh', json.token.refresh)
         localStorage.removeItem('name')
         // localStorage.setItem('name',json.user.username)
       })
@@ -123,7 +125,8 @@ function App() {
       //   setErrorMessage("Your Username or password is wrong!!!!!!!")
       //   handle_error() 
       // })
-      refreshPage()
+      // refreshPage() 
+      setTimeout(refreshPage, 1000)
   };
   
   const handle_signup = (e, data) => {
@@ -142,7 +145,8 @@ function App() {
     })
       .then(res => res.json())
       .then(json => {
-        localStorage.setItem('token', json.token);
+        localStorage.setItem('token', json.token.access)
+        localStorage.setItem('refresh', json.token.refresh)
         setLogged_In(true)
         setDisplayed_form(null)
         setUsername(json.username)
